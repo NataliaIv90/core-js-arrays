@@ -110,10 +110,14 @@ function removeFalsyValues(arr) {
  *    getStringsLength([ 'angular', 'react', 'ember' ]) => [ 7, 5, 5 ]
  */
 function getStringsLength(arr) {
-  return arr.reduce((lengths, str) => {
-    lengths.push(str.length);
-    return lengths;
-  }, []);
+  if (!arr.length) {
+    return arr;
+  }
+  const result = [];
+  Array.from({ length: arr.length }, (_, index) =>
+    result.push(arr[index].length)
+  );
+  return result;
 }
 
 /**
@@ -182,7 +186,7 @@ function isValueEqualsIndex(arr) {
  *    insertItem([ 1, 'b', 'c'], 'x', 0) => [ 'x', 1, 'b', 'c' ]
  */
 function insertItem(arr, item, index) {
-  arr.splice(index, 0, item);
+  return arr.splice(index, 0, item);
 }
 
 /**
