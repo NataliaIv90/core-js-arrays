@@ -110,14 +110,7 @@ function removeFalsyValues(arr) {
  *    getStringsLength([ 'angular', 'react', 'ember' ]) => [ 7, 5, 5 ]
  */
 function getStringsLength(arr) {
-  if (!arr.length) {
-    return arr;
-  }
-  const result = [];
-  Array.from({ length: arr.length }, (_, index) =>
-    result.push(arr[index].length)
-  );
-  return result;
+  return arr.map((elem) => elem.length);
 }
 
 /**
@@ -595,8 +588,28 @@ function propagateItemsByPositionIndex(arr) {
  *    shiftArray(['a', 'b', 'c', 'd'], -1) => ['b', 'c', 'd', 'a']
  *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
-function shiftArray(/* arr, n */) {
-  throw new Error('Not implemented');
+function shiftArray(arr, n) {
+  const result = arr;
+  let i = n;
+  function shiftArrInner(elem) {
+    if (i > 0) {
+      result.unshift(result[result.length - 1]);
+      result.pop();
+      i -= 1;
+    } else if (i < 0) {
+      if (elem === result[0]) {
+        result.push(elem);
+      } else {
+        result.push(result[0]);
+      }
+
+      result.shift();
+      i += 1;
+    }
+  }
+  arr.map((elem) => shiftArrInner(elem));
+
+  return result;
 }
 
 /**
